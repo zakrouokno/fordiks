@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="uk" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>В продажі ford sierra 2.0 donc 1993</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandPurple: {
+                            light: '#8B5CF6',
+                            DEFAULT: '#7C3AED',
+                            dark: '#6D28D9',
+                        },
+                        brandGreen: {
+                            light: '#34D399',
+                            DEFAULT: '#10B981',
+                            dark: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-white text-gray-900 dark:bg-black dark:text-gray-100 transition-colors duration-300 antialiased font-sans">
+
+    <!-- Кнопка перемикання теми -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-3 rounded-full bg-gray-100 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 hover:ring-2 hover:ring-brandPurple transition shadow-lg border dark:border-zinc-800">
+            <i id="theme-toggle-icon" class="fas fa-moon text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Модальне вікно-слайдер для перегляду фото -->
+    <div id="photo-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <!-- Кнопка Закрити -->
+        <button id="modal-close" class="absolute top-4 right-4 text-white hover:text-brandPurple p-3 text-3xl transition z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <!-- Стрілка Вліво -->
+        <button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-brandPurple p-4 text-4xl transition z-50 bg-zinc-900/50 rounded-full hover:bg-zinc-800">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <!-- Велике фото -->
+        <div class="max-w-[85%] max-h-[85vh] flex items-center justify-center">
+            <img id="modal-img" src="" alt="Перегляд фото" class="max-w-full max-h-[85vh] rounded-lg object-contain shadow-2xl transition-transform duration-300 scale-95" onerror="handleModalError(this)">
+        </div>
+
+        <!-- Стрілка Вправо -->
+        <button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-brandPurple p-4 text-4xl transition z-50 bg-zinc-900/50 rounded-full hover:bg-zinc-800">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- Лічильник фото -->
+        <div id="modal-counter" class="absolute bottom-6 text-gray-400 font-medium tracking-wider bg-zinc-900/60 px-4 py-1.5 rounded-full text-sm">
+            1 / 8
+        </div>
+    </div>
+
+    <!-- Головний екран (Hero) -->
+    <header class="relative overflow-hidden bg-gray-50 dark:bg-zinc-950 py-16 lg:py-24 border-b border-gray-100 dark:border-zinc-900">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                    В продажі <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandPurple to-brandGreen">ford sierra 2.0 donc 1993</span>
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
+                    Авто в доволі хорошому стані. Стан кузова 8/10 — є незначні сліди експлуатації, двері не в колір.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="tel:0967708853" class="px-6 py-3 bg-brandPurple hover:bg-brandPurple-dark text-white font-medium rounded-xl shadow-lg shadow-purple-500/20 transition text-center w-full sm:w-auto text-lg font-bold">
+                        <i class="fas fa-phone-alt mr-2"></i> Телефонуйте: 0967708853
+                    </a>
+                    <a href="https://t.me/your_username" target="_blank" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-xl transition text-center w-full sm:w-auto border border-zinc-700">
+                        <i class="fab fa-telegram-plane mr-2 text-brandPurple"></i> Написати в Telegram
+                    </a>
+                </div>
+            </div>
+            <!-- Головне фото -->
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-brandPurple to-brandGreen rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                <div class="relative bg-gray-200 dark:bg-zinc-900 rounded-2xl h-64 sm:h-80 flex items-center justify-center overflow-hidden shadow-xl cursor-zoom-in">
+                    <img src="images/car1.jpg" alt="Ford Sierra" class="w-full h-full object-cover gallery-trigger" data-index="0" onerror="tryAlternativeExtensions(this)">
+                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-md pointer-events-none">
+                        <i class="fas fa-camera mr-1"></i> Головне фото
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основні фішки -->
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Комплектація -->
+            <div class="bg-gray-50 dark:bg-zinc-900/50 rounded-2xl p-6 border border-gray-100 dark:border-zinc-800 flex flex-col justify-center">
+                <h3 class="text-brandPurple font-bold text-xl mb-4"><i class="fas fa-star mr-2"></i> Оснащення авто</h3>
+                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Авто на гарних R14 титанах, хороша зимова гума. Тонування бокових вікон 3%. Встановлена хороша басиста музика, є Bluetooth, AUX, USB, радіо.
+                </p>
+            </div>
+            <!-- Документи -->
+            <div class="bg-gradient-to-br from-brandGreen/10 to-transparent rounded-2xl p-6 border border-brandGreen/20 flex flex-col justify-center">
+                <h3 class="text-brandGreen font-bold text-xl mb-2"><i class="fas fa-file-alt mr-2"></i> Документи та продаж</h3>
+                <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                    Продаж по техпаспорту. Зв’язок із власником є, переоформлення можливе через Дію. Власник — військовий, знаходиться далеко.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Детальні блоки стану -->
+    <section class="bg-gray-50 dark:bg-zinc-950 py-16 border-t border-b border-gray-100 dark:border-zinc-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Технічний стан</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Двигун -->
+                <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-brandGreen/10 text-brandGreen flex items-center justify-center text-xl">
+                            <i class="fas fa-gauge-high"></i>
+                        </div>
+                        <span class="text-xs font-bold px-2 py-1 bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300 rounded">10 / 10</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Двигун</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Двигун 10/10 — не димить, не троїть, не кипить, на газ реагує відразу. Газ/бензин, газ вписаний у техпаспорт.
+                    </p>
+                </div>
+
+                <!-- Ходова -->
+                <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-brandGreen/10 text-brandGreen flex items-center justify-center text-xl">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <span class="text-xs font-bold px-2 py-1 bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300 rounded">10 / 10</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Ходова</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Ходова 10/10 — замінено:</p>
+                    <ul class="text-xs text-gray-500 dark:text-gray-400 list-disc list-inside space-y-1">
+                        <li>передню ліву стійку;</li>
+                        <li>2 передні наконечники;</li>
+                        <li>2 передні сайлентблоки;</li>
+                        <li>2 передні тяги;</li>
+                        <li>1 задню стійку;</li>
+                        <li>2 передні гальмівні диски.</li>
+                    </ul>
+                </div>
+
+                <!-- Коробка та Салон -->
+                <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800">
+                    <div class="w-12 h-12 rounded-lg bg-purple-100 text-brandPurple flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Коробка, салон та розхідники</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        Коробка в хорошому стані — не вибиває, не хрустить, передачі перемикаються легко.
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        Замінено базові розхідники: масло, задні колодки, антифриз, масляний та паливний фільтри.
+                    </p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                        Салон не прокурений, без дірок і потертостей, у хорошому стані.
+                    </p>
+                </div>
+
+                <!-- Електрика -->
+                <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 lg:col-span-3">
+                    <div class="w-12 h-12 rounded-lg bg-brandPurple/10 text-brandPurple flex items-center justify-center text-xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">По електриці все працює:</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        габарити, поворотники, ближнє та дальнє світло, задній хід, стоп-сигнали, підсвітка номерного знака, аварійна сигналізація, звуковий сигнал, підігрів заднього скла, приборна панель, освітлення салону.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Фотогалерея (7 фотокарток знизу) -->
+    <section class="py-16 max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Фотографії авто</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            
+            <!-- Фото 2 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car2.jpg" alt="Фото авто 2" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="1" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 3 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car3.jpg" alt="Фото авто 3" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="2" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 4 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car4.jpg" alt="Фото авто 4" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="3" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 5 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car5.jpg" alt="Фото авто 5" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="4" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 6 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car6.jpg" alt="Фото авто 6" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="5" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 7 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car7.jpg" alt="Фото авто 7" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="6" onerror="tryAlternativeExtensions(this)">
+            </div>
+            <!-- Фото 8 -->
+            <div class="bg-gray-100 dark:bg-zinc-900 rounded-xl overflow-hidden aspect-video relative group shadow-md border dark:border-zinc-800 cursor-zoom-in">
+                <img src="images/car8.jpg" alt="Фото авто 8" class="w-full h-full object-cover gallery-trigger hover:scale-105 transition duration-300" data-index="7" onerror="tryAlternativeExtensions(this)">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Підвал -->
+    <footer id="contacts" class="bg-gray-900 text-white dark:bg-zinc-950 py-16 border-t border-gray-800 dark:border-zinc-900">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-8">
+                <a href="tel:0967708853" class="flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition w-full sm:w-auto shadow-lg text-xl">
+                    <i class="fas fa-phone-alt text-brandPurple mr-3"></i> Телефонуйте: 0967708853
+                </a>
+                <a href="https://t.me/your_username" target="_blank" class="flex items-center justify-center px-8 py-4 bg-brandPurple hover:bg-brandPurple-dark text-white font-bold rounded-xl transition w-full sm:w-auto shadow-lg shadow-purple-500/15 text-xl">
+                    <i class="fab fa-telegram-plane mr-3"></i> Telegram
+                </a>
+            </div>
+            <div class="text-sm text-gray-500 space-y-2">
+                <p><i class="fas fa-map-marker-alt mr-1"></i> Місце огляду: Біла Церква</p>
+                <p>&copy; 2026 Продаж Ford Sierra. Всі права захищені.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипти -->
+    <script>
+        function tryAlternativeExtensions(img) {
+            if (img.getAttribute('data-retry')) return;
+            const src = img.src;
+            if (src.endsWith('.jpg')) {
+                img.setAttribute('data-retry', '1');
+                img.src = src.replace('.jpg', '.png');
+            } else if (src.endsWith('.png')) {
+                img.src = src.replace('.png', '.jpeg');
+            }
+        }
+
+        function handleModalError(img) {
+            const src = img.src;
+            if (src.endsWith('.jpg')) img.src = src.replace('.jpg', '.png');
+        }
+
+        // --- Тема ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            htmlElement.classList.remove('dark');
+            themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // --- Слайдер ---
+        const modal = document.getElementById('photo-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalCounter = document.getElementById('modal-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const closeBtn = document.getElementById('modal-close');
+        
+        const triggers = document.querySelectorAll('.gallery-trigger');
+        let currentIndex = 0;
+
+        function updateModalPhoto(index) {
+            modalImg.src = triggers[index].src;
+            modalCounter.textContent = `${index + 1} / ${triggers.length}`;
+        }
+
+        triggers.forEach((trigger, idx) => {
+            trigger.setAttribute('data-index', idx);
+            trigger.addEventListener('click', () => {
+                currentIndex = idx;
+                updateModalPhoto(currentIndex);
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.add('opacity-100');
+                    modalImg.classList.remove('scale-95');
+                    modalImg.classList.add('scale-100');
+                }, 10);
+            });
+        });
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % triggers.length;
+            updateModalPhoto(currentIndex);
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + triggers.length) % triggers.length;
+            updateModalPhoto(currentIndex);
+        }
+
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+
+        function closeModal() {
+            modal.classList.remove('opacity-100');
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight') showNext();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
